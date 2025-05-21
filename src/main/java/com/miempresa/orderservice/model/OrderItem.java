@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
@@ -11,17 +12,15 @@ import java.math.BigDecimal;
 @Table(name = "order_items",
         indexes = {@Index(name = "idx_order_items_order", columnList = "order_id")})
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_item_id") // Nombre consistente en BD
     private Long id;
-    private String sku;
-    private BigDecimal price;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderItemId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id")
@@ -30,6 +29,7 @@ public class OrderItem {
     @Column(name = "product_id", nullable = false)
     private Long productId;
 
+    private String sku;
     private Integer quantity;
 
     @Column(nullable = false, precision = 12, scale = 2)

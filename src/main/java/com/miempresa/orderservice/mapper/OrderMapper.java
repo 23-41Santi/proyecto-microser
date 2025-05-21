@@ -13,7 +13,7 @@ import java.util.Set;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
 
-    // Mapeo de Order → OrderDto (ya está bien)
+    // Mapeo de Order → OrderDto
     @Mapping(target = "orderId", source = "orderId")
     @Mapping(target = "customerId", source = "customerId")
     @Mapping(target = "tax", source = "tax")
@@ -22,27 +22,29 @@ public interface OrderMapper {
     @Mapping(target = "billingAddress", source = "billingAddress")
     OrderDto toDto(Order entity);
 
-    // Mapeo de OrderDto → Order (ya está bien)
+    // Mapeo de OrderDto → Order
     @InheritInverseConfiguration(name = "toDto")
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "orderDate", ignore = true)
     @Mapping(target = "lastUpdated", ignore = true)
     Order toEntity(OrderDto dto);
 
-    // === ¡AÑADE ESTOS MÉTODOS! ===
-    // Mapeo INDIVIDUAL: OrderItem → OrderItemDto
-    @Mapping(target = "id", source = "id")  // Puedes omitir esto si los nombres coinciden
+    // Mapeo de OrderItem → OrderItemDto
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "sku", source = "sku")
-    @Mapping(target = "price", source = "price")
-    // ... otros campos de OrderItemDto
+    @Mapping(target = "price", source = "unitPrice")  // ¡Corregido aquí!
+    @Mapping(target = "quantity", source = "quantity")
+    @Mapping(target = "productId", source = "productId")
+    @Mapping(target = "discount", source = "discount")
+    @Mapping(target = "lineTotal", source = "lineTotal")
     OrderItemDto toOrderItemDto(OrderItem item);
 
-    // Mapeo INDIVIDUAL: OrderItemDto → OrderItem
+    // Mapeo de OrderItemDto → OrderItem
     @InheritInverseConfiguration(name = "toOrderItemDto")
+    @Mapping(target = "order", ignore = true)  // Generalmente se ignora o se maneja aparte
     OrderItem toOrderItem(OrderItemDto dto);
 
-    // Mapeo de colecciones (MapStruct usará automáticamente los métodos individuales)
+    // Mapeo de colecciones
     Set<OrderItemDto> toDtoItems(Set<OrderItem> items);
-
     Set<OrderItem> toEntityItems(Set<OrderItemDto> items);
 }
