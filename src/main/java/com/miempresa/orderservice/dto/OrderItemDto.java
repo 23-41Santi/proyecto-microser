@@ -15,10 +15,10 @@ import java.math.BigDecimal;
 public class OrderItemDto {
     @NotNull
     private Long productId;
-
     private Integer quantity;
-
     private BigDecimal unitPrice;
-
     private BigDecimal discount;
+    private Long id; // Mismo nombre que en OrderItem
+    private String sku;
+    private BigDecimal price;
 }

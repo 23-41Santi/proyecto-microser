@@ -13,6 +13,12 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 public class OrderItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String sku;
+    private BigDecimal price;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
