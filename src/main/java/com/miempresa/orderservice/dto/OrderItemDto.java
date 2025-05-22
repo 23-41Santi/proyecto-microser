@@ -21,4 +21,5 @@ public class OrderItemDto {
     private Long id; // Mismo nombre que en OrderItem
     private String sku;
     private BigDecimal price;
+    private BigDecimal lineTotal;
 }

@@ -29,19 +29,19 @@ public interface OrderMapper {
     @Mapping(target = "lastUpdated", ignore = true)
     Order toEntity(OrderDto dto);
 
-    // Mapeo de OrderItem → OrderItemDto
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "sku", source = "sku")
-    @Mapping(target = "price", source = "unitPrice")  // ¡Corregido aquí!
-    @Mapping(target = "quantity", source = "quantity")
-    @Mapping(target = "productId", source = "productId")
-    @Mapping(target = "discount", source = "discount")
-    @Mapping(target = "lineTotal", source = "lineTotal")
+    @Mapping(target = "id",        source = "id")
+    @Mapping(target = "price",     source = "unitPrice")
+    @Mapping(target = "discount",  source = "discount")
+    @Mapping(target = "lineTotal",
+            expression = "java(item.getUnitPrice() " +
+                    ".multiply(java.math.BigDecimal.valueOf(item.getQuantity()))" +
+                    ".subtract(item.getDiscount() == null ? java.math.BigDecimal.ZERO : item.getDiscount()))")
     OrderItemDto toOrderItemDto(OrderItem item);
 
-    // Mapeo de OrderItemDto → OrderItem
+    /* mapeo inverso, usualmente ignoramos lineTotal porque se recalcula */
     @InheritInverseConfiguration(name = "toOrderItemDto")
-    @Mapping(target = "order", ignore = true)  // Generalmente se ignora o se maneja aparte
+    @Mapping(target = "lineTotal", ignore = true)
+    @Mapping(target = "order",     ignore = true)
     OrderItem toOrderItem(OrderItemDto dto);
 
     // Mapeo de colecciones

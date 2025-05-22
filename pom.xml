@@ -73,11 +73,6 @@
       <version>${mapstruct.version}</version>
     </dependency>
 
-    <!-- Spring Cloud (Feign + Resilience4j) -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-    </dependency>
 
     <!-- Kafka (opcional, si lo usas) -->
     <dependency>
@@ -101,18 +96,7 @@
     </dependency>
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-      <!-- Spring Cloud BOM (para evitar conflictos de versiones) -->
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+
 
   <build>
     <plugins>
@@ -159,3 +143,4 @@
     </plugins>
   </build>
 </project>
+

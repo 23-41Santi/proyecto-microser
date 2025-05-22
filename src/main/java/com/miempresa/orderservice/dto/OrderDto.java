@@ -30,6 +30,7 @@ public class OrderDto {
 
     @PositiveOrZero
     private BigDecimal shippingCost;
+    private BigDecimal discount;
 
     private String shippingAddress;
     private String billingAddress;
