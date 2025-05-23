@@ -17,9 +17,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Order implements Serializable {
+@Getter
+@Setter
 
-    private static final long serialVersionUID = 1L;  // Versión de serialización
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
