@@ -47,7 +47,6 @@ public class OrderService {
                 .orElseThrow(() -> new OrderNotFoundException(id));
         // MapStruct actualiza entidad existente
         Order updated = mapper.toEntity(dto);
-        updated.setOrderId(existing.getOrderId());
         Order saved = repository.save(updated);
         return mapper.toDto(saved);
     }

@@ -1,5 +1,6 @@
 package com.miempresa.orderservice.dto;
 
+import com.miempresa.orderservice.data.OrderStatus;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,9 @@ import java.util.Set;
 public class OrderDto {
 
     private Long orderId;
+
+    @NotNull
+    private OrderStatus status;
 
     @NotNull
     private Long customerId;
